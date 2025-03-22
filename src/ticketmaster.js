@@ -33,3 +33,19 @@ export async function getEvents(size = 1) { // default value is 1 for getEvents(
     return [];
   }
 }
+
+// makes it not heinously unreadable 
+export async function getFormattedEvents(size = 1) {
+  const events = await getEvents(size);
+
+  if (events.length === 0) {
+    return "No events found.";
+  }
+
+  // Format the events into a string with event names and links
+  const eventsString = events
+    .map((event) => `${event.name}: ${event.url}`)
+    .join("\n"); // Join them with a newline for readability
+
+  return eventsString;
+}
