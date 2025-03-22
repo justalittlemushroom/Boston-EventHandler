@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addEvent } from "./storage";
+import { addEvent } from "./storage.jsx";
 
 function App() {
   const [name, setName] = useState("");
