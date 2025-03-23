@@ -14,7 +14,7 @@ const ActivityPlanner = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch('http://localhost:3003/api/events?size=5'); // Update the port here;
+      const response = await fetch('http://localhost:3003/api/events?size=200'); // update the port here;
       const data = await response.json();
       setEvents(data);
     } catch (error) {
@@ -34,12 +34,18 @@ const ActivityPlanner = () => {
 
   return (
     <div className="app">
-      <h1>Boston Activity Planner</h1>
+      <h1>Boston EventHandler</h1>
       <div className="display-card">
         {currentEvent ? (
           <>
             <h2>{currentEvent.name}</h2>
-            <img src={currentEvent.image} alt={currentEvent.name} />
+            <img src={currentEvent.image} alt={currentEvent.name} style={{
+                width: '300px',
+                height: '200px', 
+                objectfit: 'cover', 
+                borderRadius: '20px' 
+            }} />
+            <a href={currentEvent.url}>See the event page!</a>
           </>
         ) : (
           <p>Loading...</p>
