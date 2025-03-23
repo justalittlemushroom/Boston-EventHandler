@@ -1,47 +1,27 @@
-import { useState } from "react";
-import { addEvent } from "./storage.jsx";
+import React from 'react';
+import { IonIcon } from '@ionic/react';
+import { caretBackOutline, caretForwardOutline } from 'ionicons/icons';
+import './index.css';
 
-function App() {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [pictureURL, setPictureURL] = useState("");
-  const [address, setAddress] = useState("");
-  const [timeframe, setTimeframe] = useState(null);
-  const [price, setPrice] = useState(0);
-  const [saved, setSaved] = useState(false);
-  const [tags, setTags] = useState("");
-  
+const ActivityPlanner = () => {
   return (
-    <div>
-    <label>Name</label>
-    <input type="text" onChange={(e) => setName(e.target.value)} />
-    
-    <label>Description</label>
-    <input type="text" onChange={(e) => setDescription(e.target.value)} />
-    
-    <label>Picture URL</label>
-    <input type="text" onChange={(e) => setPictureURL(e.target.value)} />
-    
-    <label>Address</label>
-    <input type="text" onChange={(e) => setAddress(e.target.value)} />
-    
-    <label>Timeframe</label>
-    <input type="datetime-local" onChange={(e) => setTimeframe(e.target.value ? new Date(e.target.value).toISOString() : null)} />
-    
-    <label>Price</label>
-    <input type="number" onChange={(e) => setPrice(parseFloat(e.target.value))} />
-    
-    <label>Saved</label>
-    <input type="checkbox" onChange={(e) => setSaved(e.target.checked)} />
-    
-    <label>Tags (comma-separated)</label>
-    <input type="text" onChange={(e) => setTags(e.target.value)} />
-    
-    <button onClick={() => addEvent(name, description, pictureURL, address, timeframe, price, saved, tags.split(","))}>
-    Add Event
-    </button>
+    <div className="app">
+      <h1>Boston Activity Planner</h1>
+      <div className="display-card">
+        <h2>Location title goes here</h2>
+        <img src="https://example.com/image.jpg" alt="Example Image" />
+      </div>
+      <div className="button-group">
+        <button className="next-btn">
+          <IonIcon icon={caretBackOutline} />
+        </button>
+        <button className="prev-btn">
+          <IonIcon icon={caretForwardOutline} />
+        </button>
+        <button className="add-btn">Add Item to List</button>
+      </div>
     </div>
   );
-}
+};
 
-export default App;
+export default ActivityPlanner;
