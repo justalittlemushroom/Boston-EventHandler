@@ -12,7 +12,9 @@
   "dependencies": {
     "@ionic/react": "^8.5.1",
     "@supabase/supabase-js": "^2.48.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "fetch": "^1.1.0",
     "ionicons": "^7.4.0",
     "node-fetch": "^3.3.2",
