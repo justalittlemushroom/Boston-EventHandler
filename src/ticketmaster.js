@@ -48,7 +48,7 @@ export async function getFormattedEvents(size = 1) {
 
   // Format the events into a string with event names and links
   const eventsString = events
-    .map((event) => `${event.name}: ${event.url}`)
+    .map((event) => `${event.name}:\n ${event.url}\n ${event.images[0].url}`)
     .join("\n\n"); // Join them with a newline for readability
 
   return eventsString;
