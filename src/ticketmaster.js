@@ -46,9 +46,30 @@ export async function getFormattedEvents(size = 1) {
     return "No events found.";
   }
 
+// Create an empty array to store formatted events
+  const eventList = events.map((event) => {
+    return {
+      name: event.name,
+      url: event.url, 
+      image: event.images[0].url
+    };
+  });
+
+  // You can return the array as it is, or format it to a string if needed
+  return eventList;
+}
+
+// gets images 
+export async function getEventsImages(size = 1) {
+  const events = await getEvents(size);
+
+  if (events.length === 0) {
+    return "No events found.";
+  }
+
   // Format the events into a string with event names and links
   const eventsString = events
-    .map((event) => `${event.name}:\n ${event.url}\n ${event.images[0].url}`)
+    .map((event) => `${event.images[0].url}`)
     .join("\n\n"); // Join them with a newline for readability
 
   return eventsString;
