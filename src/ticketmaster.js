@@ -12,7 +12,7 @@ const BASE_URL = "https://app.ticketmaster.com/discovery/v2/events.json"; // whe
 export async function getEvents(size = 1) { // default value is 1 for getEvents(), but passing x will return x events
   try {
     // wait until fetch finishes before moving on to the next line of code 
-    const response = await fetch(`${BASE_URL}?size=${size}&apikey=${API_KEY}`);
+    const response = await fetch(`${BASE_URL}?size=${size}&apikey=${API_KEY}&marketId=11`);
 
     // response.ok is true if the status code is between 200 and 299 (indicating a successful request).
     // this is just  good practice; not required 
@@ -24,9 +24,13 @@ export async function getEvents(size = 1) { // default value is 1 for getEvents(
     // checks if this data exists, and if it doesn't just return an empty array 
     // if there's anything in the data it's deemed to be a truthy value 
     if (data._embedded && data._embedded.events) {
-        return data._embedded.events;
+      // Filter events to only include those in Boston
+      const bostonEvents = data._embedded.events.filter((event) => {
+        return event._embedded;
+      });
+      return bostonEvents;
     } else {
-        return [];
+      return [];
     }
   } catch (error) {
     console.error("Error fetching events:", error);
@@ -45,7 +49,7 @@ export async function getFormattedEvents(size = 1) {
   // Format the events into a string with event names and links
   const eventsString = events
     .map((event) => `${event.name}: ${event.url}`)
-    .join("\n"); // Join them with a newline for readability
+    .join("\n\n"); // Join them with a newline for readability
 
   return eventsString;
 }
