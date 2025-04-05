@@ -48,8 +48,7 @@ async function removeDuplicates(events) {
       returnedList.push(array[i]);
     }
   }
-  console.log(returnedList);
-
+  
   return returnedList;
 }
 
@@ -81,7 +80,7 @@ export async function getFormattedEvents(size = 1) {
   });
 
   // You can return the array as it is, or format it to a string if needed
-  return eventList;
+  return removeDuplicates(eventList);
 }
 
 // gets images 
@@ -100,4 +99,4 @@ export async function getEventsImages(size = 1) {
   return eventsString;
 }
 
-console.log(removeDuplicates(getFormattedEvents(10)));
+console.log(await getFormattedEvents(10));
