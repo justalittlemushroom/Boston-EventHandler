@@ -38,6 +38,21 @@ export async function getEvents(size = 1) { // default value is 1 for getEvents(
   }
 }
 
+async function removeDuplicates(events) {
+  const array = await events;
+  var seenNames = [];
+  var returnedList = [];
+  for (let i = 0; i < array.length; i++) { 
+    if (!seenNames.includes(array[i].name)) { // if we haven't seen it yet, add it 
+      seenNames.push(array[i].name);
+      returnedList.push(array[i]);
+    }
+  }
+  console.log(returnedList);
+
+  return returnedList;
+}
+
 // makes it not heinously unreadable 
 export async function getFormattedEvents(size = 1) {
   const events = await getEvents(size);
@@ -48,9 +63,19 @@ export async function getFormattedEvents(size = 1) {
 
 // Create an empty array to store formatted events
   const eventList = events.map((event) => {
+    // gets the venue of the event
+    const venue = event._embedded.venues[0]; 
+
+    // if venue and the address exist, then do them otherwise say it's unnavailable
+    const address = venue && venue.address ? 
+      `${venue.address.line1}, ${venue.city.name}, ${venue.state.stateCode}, ${venue.postalCode}` 
+      : "Address not available";
+
     return {
       name: event.name,
-      url: event.url, 
+      url: event.url,
+      address: address,
+      date: event.dates.start.localDate + ", " + event.dates.start.localTime,
       image: event.images[0].url
     };
   });
@@ -74,3 +99,5 @@ export async function getEventsImages(size = 1) {
 
   return eventsString;
 }
+
+console.log(removeDuplicates(getFormattedEvents(10)));

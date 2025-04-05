@@ -1,5 +1,5 @@
-import { getEvents, getEventsImages } from 'ticketmaster.js'; 
-import { getFormattedEvents } from 'ticketmaster.js';
+import { getEvents, getEventsImages } from './ticketmaster.js'; 
+import { getFormattedEvents } from './ticketmaster.js';
 
 // call the function and log the result
 // .then is called after the getEvents call finishes, then 
@@ -10,6 +10,6 @@ import { getFormattedEvents } from 'ticketmaster.js';
 //   // JSON.stringify(object: your JSON, replacer: filter / modify, spacing: controls indentation)
 // });
 
-getFormattedEvents(5).then(events => {
+getFormattedEvents(10).then(events => {
   console.log(events);
 });
