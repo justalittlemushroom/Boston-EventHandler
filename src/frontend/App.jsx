@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IonIcon } from '@ionic/react';
 import { caretBackOutline, caretForwardOutline } from 'ionicons/icons';
+import { addEvent, deleteEvent } from '../backend/storage.jsx'
 import './index.css';
 
 const ActivityPlanner = () => {
@@ -28,6 +29,14 @@ const ActivityPlanner = () => {
 
   const prevEvent = () => {
     setCurrentEventIndex((prevIndex) => (prevIndex - 1 + events.length) % events.length);
+  };
+
+  const saveEvent = () => {
+    addEvent(events[currentEventIndex]); 
+  };
+
+  const unsaveEvent = () => {
+    deleteEvent(events[currentEventIndex]); 
   };
 
   const currentEvent = events[currentEventIndex];
@@ -58,7 +67,8 @@ const ActivityPlanner = () => {
         <button className="prev-btn" onClick={nextEvent}>
           <IonIcon icon={caretForwardOutline} />
         </button>
-        <button className="add-btn">Add Item to List</button>
+        <button className="add-btn" onClick={saveEvent}>Save Event</button>
+        <button className="delete-btn" onClick={unsaveEvent}>Delete Event</button>
       </div>
     </div>
   );
