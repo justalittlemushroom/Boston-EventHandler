@@ -38,6 +38,35 @@ const ActivityPlanner = () => {
   const [page, setPage] = useState(0); // current page of events 
   const [isLoading, setIsLoading] = useState(false);
   
+  const savedList = () => {
+    return (
+    <div className="saved-events-list">
+          <ul>
+            {savedEvents.length > 0 ? (
+              savedEvents.map((event) => (
+                <li key={event.id}>
+                  <h3>
+                    <a href={event.url}>{event.name}</a>
+                  </h3>
+                  <img
+                    src={event.image}
+                    alt={event.name}
+                    className="event-image"
+                  />
+                  <button
+                    className="delete-btn"
+                    onClick={() => unsaveEvent(event)}>
+                    Unsave Event
+                  </button>
+                </li>
+              ))
+            ) : (
+              <p>No Saved Events Yet!</p>
+            )}
+          </ul>
+        </div>);
+  };
+
   // initializes the first few events 
   useEffect(() => {
     const fetchAndLog = async () => {
@@ -124,7 +153,7 @@ const ActivityPlanner = () => {
   
   return (
     <div className="app">
-    <h1>Boston EventHandler</h1>
+    <h1 className="default-text">Boston EventHandler</h1>
     <div className="display-card">
     {currentEvent ? (
       <>
@@ -133,50 +162,25 @@ const ActivityPlanner = () => {
       <a href={currentEvent.url}>See the event page!</a>
       </>
     ) : (
-      <p>Loading...</p>
+      <p className="default-text">Loading...</p>
     )}
     
-    </div>
-    <div className="button-group">
-    <button className="next-btn" onClick={prevEvent}>
-    <IonIcon icon={caretBackOutline} />
-    </button>
-    <button className="prev-btn" onClick={nextEvent}>
-    <IonIcon icon={caretForwardOutline} />
-    </button>
-    <button className="add-btn" onClick={saveEvent}>Save Event</button>
-    <button className="saved-list-btn" onClick={toggleSavedList}>
-    {savedListVisible ? 'Close Saved Events' : 'View Saved Events'}
-    </button>
-    
-    </div>
-    <div className={`saved-events-menu ${savedListVisible ? 'show' : ''}`}>
-    <div className="saved-events-list">
-    <ul>
-    {savedEvents.length > 0 ? (
-      savedEvents.map((event) => (
-        <li key={event.id}>
-        <h3>
-        <a href={event.url}>{event.name}</a>
-        </h3>
-        <img
-        src={event.image}
-        alt={event.name}
-        className="event-image"
-        />
-        <button 
-        className="delete-btn" 
-        onClick={() => unsaveEvent(event)}>
-        Unsave Event
+      </div>
+      <div className="button-group">
+        <button className="next-btn" onClick={prevEvent}>
+          <IonIcon icon={caretBackOutline} />
         </button>
-        </li>
-      ))
-    ) : (
-      <p>No Saved Events Yet!</p>
-    )}
-    </ul>
-    </div>
-    </div>
+        <button className="prev-btn" onClick={nextEvent}>
+          <IonIcon icon={caretForwardOutline} />
+        </button>
+      </div>
+      <div className={`saved-events-menu ${savedListVisible ? 'show' : ''}`}>
+        <button className="add-btn" onClick={saveEvent}>Save Event</button>
+        <button className="saved-list-btn" onClick={toggleSavedList}>
+          {savedListVisible ? 'Close Saved Events' : 'View Saved Events'}
+        </button>
+        {savedListVisible && savedList()}
+      </div>
     </div>
   );
 };

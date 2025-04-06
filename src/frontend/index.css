@@ -1,12 +1,48 @@
+body {
+  margin: 40px;
+  text-align: center;
+  background-color: #1f1a20;
+  font-family: 'Courier New', Courier, monospace;
+  color: rgb(224, 221, 240); 
+}
 
-.display-card {
-  color: #B9D4F2;
+.next-btn, .prev-btn, .add-btn, .delete-btn, .saved-list-btn {
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bold;
+  border-style: inherit;
+  color:#3a3340;
+}
+
+h1, h2 {
+  color: inherit;
+}
+
+a { /* this is for links*/
+  color: #e3d0ff; 
+  text-decoration: underline; 
+}
+
+a:hover {
+  color: #ffffff; 
+  text-decoration: bold; 
+}
+
+h2 {
+  color: inherit;
+}
+
+.default-text {
+  color: inherit;
+}
+
+.display-card { 
+  color: #1f1a20;
   width: 400px;
-  height: 400px;
+  height: 385px;
   padding: 50px;
-  border: 4px solid #C3C2BD;
-  border-radius: 10px;
-  background-color: #F3F1EA;
+  border: 4px solid #d0cdde;
+  border-radius: 40px;
+  background-color: #221d24;
   cursor: pointer;
   margin: auto;
   display: flex;
@@ -19,51 +55,52 @@
   width: 300px;
   height: 200px;
   object-fit: cover;
+  border-style:inherit;
+  border-width: 3px;
   border-radius: 20px;
+  border-color:#b8adc9;
+  margin-top: 8px;
+  margin-bottom: 10px;
 }
 
-body {
-  margin: 50px;
-  text-align: center;
-  background-color: antiquewhite;
-}
 .next-btn, .prev-btn {
-  background-color: #B9D4F2;
-  border: 2px solid #81BDFF;
-  color: #81BDFF;
+  background-color: #938aa2;
+  border: 4px solid #382f42;
+  color: #382f42;
   border-radius: 50%;
-  padding: 0px;
-  font-size: 50px;
+  padding: 3px;
+  font-size: 60px;
   position: relative;
-  right: 240px;
-  bottom: 40px;
+  right: 280px;
+  bottom: 80px;
 }
+
 .prev-btn {
-  left: 350px;
-  bottom: 50px;
+  left: 280px;
+  bottom: 80px;
 }
 
 .prev-btn:hover,.next-btn:hover
 {
-  background-color: #CCE4FF;
+  background-color: #b8adc9;
 }
 
 .add-btn {
-  background-color: darksalmon;
+  background-color: rgb(255, 255, 255);
   border: none;
   border-radius: 20%;
   padding: 10px;
-  position: relative;
+  position: center;
   right: 50px;
   justify-content: center;
   
 }
 .add-btn:hover {
-  background-color: #EAB0A7;
+  background-color: #988ca1;
 }
 
 .delete-btn {
-  background-color: darksalmon;
+  background-color: rgb(188, 183, 203);
   border: none;
   border-radius: 20%;
   padding: 10px;
@@ -73,21 +110,21 @@ body {
   
 }
 .add-delete:hover {
-  background-color: #EAB0A7;
+  background-color: #89829d;
 }
 
 .saved-list-btn {
-  background-color: darksalmon;
+  background-color: rgb(194, 184, 205);
   border: none;
   border-radius: 20%;
   padding: 10px;
-  position: relative;
+  position: center;
   right: 50px;
   justify-content: center;
   
 }
 .saved-list-btn:hover {
-  background-color: #EAB0A7;
+  background-color: #7c7085;
 }
 
 h1 {
@@ -95,5 +132,5 @@ h1 {
 }
 
 h2 {
-  color: black;
+  color: rgb(218, 209, 227);
 }
