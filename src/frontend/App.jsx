@@ -40,16 +40,14 @@ const ActivityPlanner = () => {
 
   // initializes the first few events 
   useEffect(() => {
-    fetchEvents();
-    getEvents(setEvents);
     const fetchAndLog = async () => {
       const formatted = await formatEvents(events);
       console.log("page: " + page + "\ndata:", formatted);
     };
-
+  
     fetchEvents(page); // fetch from API
     fetchAndLog(); 
-  }, [page]);
+  }, [page]);  
 
   const fetchEvents = async (pageNum) => {
     try {
