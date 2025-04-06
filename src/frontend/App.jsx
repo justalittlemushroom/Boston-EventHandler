@@ -168,10 +168,8 @@ const ActivityPlanner = () => {
       </div>
       <div className="button-group">
         <button className="next-btn" onClick={prevEvent}>
-          <IonIcon icon={caretBackOutline} />
         </button>
         <button className="prev-btn" onClick={nextEvent}>
-          <IonIcon icon={caretForwardOutline} />
         </button>
       </div>
       <div className={`saved-events-menu ${savedListVisible ? 'show' : ''}`}>
