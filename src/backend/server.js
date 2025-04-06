@@ -9,8 +9,9 @@ app.use(cors());
 
 app.get('/api/events', async (req, res) => {
   const size = req.query.size || 1;
+  const page = req.query.page || 0;
   try {
-    const events = await getFormattedEvents(size);
+    const events = await getFormattedEvents(size, page);
     res.json(events);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching events' });
