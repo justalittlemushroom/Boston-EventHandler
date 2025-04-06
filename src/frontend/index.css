@@ -15,6 +15,13 @@
   flex-direction: column;
 }
 
+.event-image {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
 body {
   margin: 50px;
   text-align: center;
@@ -52,6 +59,34 @@ body {
   
 }
 .add-btn:hover {
+  background-color: #EAB0A7;
+}
+
+.delete-btn {
+  background-color: darksalmon;
+  border: none;
+  border-radius: 20%;
+  padding: 10px;
+  position: relative;
+  right: 50px;
+  justify-content: center;
+  
+}
+.add-delete:hover {
+  background-color: #EAB0A7;
+}
+
+.saved-list-btn {
+  background-color: darksalmon;
+  border: none;
+  border-radius: 20%;
+  padding: 10px;
+  position: relative;
+  right: 50px;
+  justify-content: center;
+  
+}
+.saved-list-btn:hover {
   background-color: #EAB0A7;
 }
 

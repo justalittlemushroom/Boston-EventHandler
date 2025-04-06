@@ -10,6 +10,6 @@ import { getFormattedEvents } from './ticketmaster.js';
 //   // JSON.stringify(object: your JSON, replacer: filter / modify, spacing: controls indentation)
 // });
 
-getFormattedEvents(5).then(events => {
+getFormattedEvents(10).then(events => {
   console.log(events);
 });

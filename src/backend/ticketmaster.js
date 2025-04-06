@@ -9,10 +9,10 @@ const BASE_URL = "https://app.ticketmaster.com/discovery/v2/events.json"; // whe
 // async allows the program to run while this function is being processed
 // API requests take a while 
 // we also write export here to export the function for when we import the file elsewhere
-export async function getEvents(size = 1) { // default value is 1 for getEvents(), but passing x will return x events
+export async function getEvents(size = 1, page = 0) { // default value is 1 for getEvents(), but passing x will return x events
   try {
     // wait until fetch finishes before moving on to the next line of code 
-    const response = await fetch(`${BASE_URL}?size=${size}&apikey=${API_KEY}&marketId=11`);
+    const response = await fetch(`${BASE_URL}?size=${size}&apikey=${API_KEY}&marketId=11&page=${page}`);
 
     // response.ok is true if the status code is between 200 and 299 (indicating a successful request).
     // this is just  good practice; not required 
@@ -38,25 +38,74 @@ export async function getEvents(size = 1) { // default value is 1 for getEvents(
   }
 }
 
+async function removeDuplicates(events) {
+  const array = await events;
+  var seenNames = [];
+  var returnedList = [];
+  for (let i = 0; i < array.length; i++) { 
+    if (!seenNames.includes(array[i].name)) { // if we haven't seen it yet, add it 
+      seenNames.push(array[i].name);
+      returnedList.push(array[i]);
+    }
+  }
+  
+  return returnedList;
+}
+
+export async function formatEvents(allEvents) {
+  var events = await allEvents;
+  // Create an empty array to store formatted events
+  const eventList = events.map((event) => {
+    // gets the venue of the event
+    const venue = event._embedded?.venues?.[0]; 
+
+    // if venue and the address exist, then do them otherwise say it's unnavailable
+    const address = venue && venue.address ? 
+      `${venue.address.line1}, ${venue.city.name}, ${venue.state.stateCode}, ${venue.postalCode}` 
+      : "Address not available";
+
+    return {
+      name: event.name,
+      url: event.url,
+      address: address,
+      date: event.dates?.start?.localDate + ", " + event.dates?.start?.localTime,
+      image: event.images?.[0].url || 'https://formbuilder.ccavenue.com/live/uploads/company_image/488/17316704336156_Event-Image-Not-Found.jpg'
+    };
+  });
+
+  // return removeDuplicates(eventList);
+  return eventList;
+}
+
 // makes it not heinously unreadable 
-export async function getFormattedEvents(size = 1) {
-  const events = await getEvents(size);
+export async function getFormattedEvents(size = 1, page = 0) {
+  const events = await getEvents(size, page);
 
   if (events.length === 0) {
     return "No events found.";
   }
 
-// Create an empty array to store formatted events
+  // Create an empty array to store formatted events
   const eventList = events.map((event) => {
+    // gets the venue of the event
+    const venue = event._embedded.venues[0]; 
+
+    // if venue and the address exist, then do them otherwise say it's unnavailable
+    const address = venue && venue.address ? 
+      `${venue.address.line1}, ${venue.city.name}, ${venue.state.stateCode}, ${venue.postalCode}` 
+      : "Address not available";
+
     return {
       name: event.name,
-      url: event.url, 
+      url: event.url,
+      address: address,
+      date: event.dates.start.localDate + ", " + event.dates.start.localTime,
       image: event.images[0].url
     };
   });
 
   // You can return the array as it is, or format it to a string if needed
-  return eventList;
+  return removeDuplicates(eventList);
 }
 
 // gets images 
@@ -74,3 +123,5 @@ export async function getEventsImages(size = 1) {
 
   return eventsString;
 }
+
+console.log(await formatEvents(await getEvents(5)));
